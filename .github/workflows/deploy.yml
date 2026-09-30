@@ -1,3 +1,4 @@
+```yaml
 name: Deploy to cPanel
 
 on:
@@ -9,6 +10,7 @@ jobs:
   web-deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
+
     steps:
       - name: Get latest code
         uses: actions/checkout@v4
@@ -22,7 +24,7 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
 
-    - name: Install dependencies & Build
+      - name: Install dependencies & Build
         run: |
           pnpm install
           pnpm run build
@@ -34,5 +36,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: dist/
-          server-dir: /public_html/ 
+          server-dir: /public_html/
           dangerous-clean-slate: false
+```
