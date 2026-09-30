@@ -15,8 +15,6 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: package.json # This explicitly tells it to read the exact version from package.json without conflict
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
