@@ -1,0 +1,15 @@
+/* humanstxt.org */
+
+/* TEAM */
+Developer: Aghama Moriah Jesurobo
+Contact: aghama [at] mumswhocode.net
+Role: Web Design & Development, Deployment
+
+/* CLIENT */
+Organisation: Orbiah Education
+Site: https://orbiaheducation.com
+
+/* SITE */
+Last update: 2025/09
+Language: English, Arabic
+Standards: HTML5, CSS3, TypeScript, React
