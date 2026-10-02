@@ -39,18 +39,14 @@ jobs:
         shell: bash
         env:
           SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
-          SFTP_SERVER: ${{ secrets.SFTP_HOST }}
+          SFTP_SERVER: ${{ secrets.CPANEL_SFTP_HOST }}
           SSH_PRIVATE_KEY: ${{ secrets.SFTP_PRIVATE_KEY }}
         run: |
           test -n "$SFTP_USERNAME" || { echo "SFTP_USERNAME is empty"; exit 1; }
-          test -n "$SFTP_SERVER" || { echo "SFTP_SERVER is empty"; exit 1; }
-
-          if [ -z "$SFTP_PASSWORD" ] && [ -z "$SSH_PRIVATE_KEY" ]; then
-          echo "Neither SFTP_PASSWORD nor SSH_PRIVATE_KEY is set"
-          exit 1
-          fi
-
-           echo "Username and server are configured"
+          test -n "$SFTP_SERVER" || { echo "CPANEL_SFTP_SERVER is empty"; exit 1; }
+          test -n "$SSH_PRIVATE_KEY" || {echo "SFTP_PRIVATE_KEY is empty"; exit 1; }
+      
+          echo "Username, server, and private key are configured"
 
       
       - name: Deploy to cPanel
