@@ -34,14 +34,14 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Deploy to cPanel via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Deploy to cPanel via SFTP
+        uses: appleboy/scp-action@v0.1.7
         with:
-          server: ${{ secrets.CPANEL_SFTP_HOST }}
+          host: ${{ secrets.CPANEL_SFTP_HOST }}
           username: ${{ secrets.SFTP_USERNAME }}
-          password: ${{ secrets.SFTP_PASSWORD }}
-          server-dir: public_html/
-          local-dir: ./dist/public/
-          dangerous-clean-slate: true
-
+          key: ${{ secrets.CPANEL_SFTP_PRIVATE_KEY }}
+          port: 21098
+          source: "dist/public/*"
+          target: "public_html/"
+          rm: false
       
