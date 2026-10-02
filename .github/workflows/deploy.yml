@@ -33,6 +33,23 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Validate SFTP credentials
+        env:
+          DEPLOY_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          DEPLOY_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+        run: |
+          if [ -z "$DEPLOY_USERNAME" ]; then
+            echo "::error::SFTP_USERNAME is unavailable to this workflow"
+            exit 1
+          fi
+
+          if [ -z "$DEPLOY_PASSWORD" ]; then
+            echo "::error::SFTP_PASSWORD is unavailable to this workflow"
+            exit 1
+          fi
+
+          echo "SFTP credentials are available."
+
       - name: Deploy dist/public to Namecheap cPanel over SFTP
         uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
@@ -44,4 +61,3 @@ jobs:
           remote_path: '/public_html/'
           sftp_only: true
           delete_remote_files: false
-
