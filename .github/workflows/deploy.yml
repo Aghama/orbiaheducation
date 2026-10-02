@@ -39,9 +39,9 @@ jobs:
         shell: bash
         env:
           SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
-          SFTP_SERVER: ${{ secrets.SFTP_SERVER }}
+          SFTP_SERVER: ${{ secrets.SFTP_HOST }}
           SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.SFTP_PRIVATE_KEY }}
         run: |
           test -n "$SFTP_USERNAME" || { echo "SFTP_USERNAME is empty"; exit 1; }
           test -n "$SFTP_SERVER" || { echo "SFTP_SERVER is empty"; exit 1; }
@@ -54,15 +54,15 @@ jobs:
            echo "Username and server are configured"
 
       
-      - name: Deploy dist/public to Namecheap cPanel over SFTP
+      - name: Deploy to cPanel
         uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
           server: ${{ secrets.CPANEL_SFTP_HOST }}
           username: ${{ secrets.SFTP_USERNAME }}
           ssh_private_key: ${{ secrets.SFTP_PRIVATE_KEY }}
           port: 21098
-          local_path: './dist/public/*'
-          remote_path: 'public_html/'
+          local_path: ./dist/public/*
+          remote_path: public_html/
           sftp_only: true
           delete_remote_files: false
 
