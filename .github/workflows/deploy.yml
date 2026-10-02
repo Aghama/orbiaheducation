@@ -34,31 +34,6 @@ jobs:
       - name: Build
         run: pnpm build
 
-
-      - name: Validate deployment settings
-        shell: bash
-        env:
-          SFTP_USERNAME: ${{ secrets.CPANEL_SFTP_USERNAME }}
-          SFTP_SERVER: ${{ secrets.CPANEL_SFTP_HOST }}
-          SSH_PRIVATE_KEY: ${{ secrets.CPANEL_SFTP_PRIVATE_KEY }}
-        run: |
-          if [ -z "$SFTP_USERNAME" ]; then
-            echo "CPANEL_SFTP_USERNAME is empty"
-            exit 1
-          fi
-
-          if [ -z "$SFTP_SERVER" ]; then
-            echo "CPANEL_SFTP_HOST is empty"
-            exit 1
-          fi
-
-          if [ -z "$SSH_PRIVATE_KEY" ]; then
-            echo "CPANEL_SFTP_PRIVATE_KEY is empty"
-            exit 1
-          fi
-
-          echo "Username, server, and private key are configured"
-
       - name: Deploy to cPanel
         uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
