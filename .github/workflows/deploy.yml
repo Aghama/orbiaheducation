@@ -39,7 +39,7 @@ jobs:
         with:
           server: ${{ secrets.CPANEL_SFTP_HOST }}
           username: ${{ secrets.CPANEL_SFTP_USERNAME }}
-          ssh_private_key: ${{ secrets.CPANEL_SFTP_PRIVATE_KEY }}
+          ssh_private_key: ${{ secrets.CPANEL_SFTP_PASSWORD }}
           port: 21098
           local_path: ./dist/public/*
           remote_path: public_html/
