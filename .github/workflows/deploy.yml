@@ -38,36 +38,35 @@ jobs:
       - name: Validate deployment settings
         shell: bash
         env:
-          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          SFTP_USERNAME: ${{ secrets.CPANEL_SFTP_USERNAME }}
           SFTP_SERVER: ${{ secrets.CPANEL_SFTP_HOST }}
-          SSH_PRIVATE_KEY: ${{ secrets.SFTP_PRIVATE_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.CPANEL_SFTP_PRIVATE_KEY }}
         run: |
           if [ -z "$SFTP_USERNAME" ]; then
-             echo "SFTP_USERNAME is empty"
-             exit 1
+            echo "CPANEL_SFTP_USERNAME is empty"
+            exit 1
           fi
 
           if [ -z "$SFTP_SERVER" ]; then
-             echo "CPANEL_SFTP_HOST is empty"
-             exit 1
+            echo "CPANEL_SFTP_HOST is empty"
+            exit 1
           fi
 
           if [ -z "$SSH_PRIVATE_KEY" ]; then
-            echo "SFTP_PRIVATE_KEY is empty"
+            echo "CPANEL_SFTP_PRIVATE_KEY is empty"
             exit 1
           fi
-       echo "Username, server, and private key are configured"
 
+          echo "Username, server, and private key are configured"
 
-      
       - name: Deploy to cPanel
         uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
           server: ${{ secrets.CPANEL_SFTP_HOST }}
-          username: ${{ secrets.SFTP_USERNAME }}
-          ssh_private_key: ${{ secrets.SFTP_PRIVATE_KEY }}
+          username: ${{ secrets.CPANEL_SFTP_USERNAME }}
+          ssh_private_key: ${{ secrets.CPANEL_SFTP_PRIVATE_KEY }}
           port: 21098
-          local_path: ./dist/public/*
+          local_path: ./dist/public/
           remote_path: public_html/
           sftp_only: true
           delete_remote_files: false
