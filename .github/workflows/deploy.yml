@@ -10,6 +10,7 @@ jobs:
   web-deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
       - name: Get latest code
@@ -44,3 +45,5 @@ jobs:
           remote_path: '/public_html/'
           sftp_only: true
           delete_remote_files: false
+
+      
