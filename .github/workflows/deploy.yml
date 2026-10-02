@@ -33,14 +33,15 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Sync files to cPanel via SFTP
+      - name: Deploy dist/public to Namecheap cPanel over SFTP
         uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
-          server: ${{ secrets.CPANEL_SFTP_HOST }}
-          username: ${{ secrets.CPANEL_SFTP_USERNAME }}
-          ssh_private_key: ${{ secrets.CPANEL_SFTP_PRIVATE_KEY }}
+          server: premium362.web-hosting.com
+          username: ${{ secrets.SFTP_USERNAME }}
+          password: ${{ secrets.SFTP_PASSWORD }}
           port: 21098
           local_path: './dist/public/*'
-          remote_path: ${{ secrets.CPANEL_REMOTE_PATH }}
+          remote_path: '/public_html/'
           sftp_only: true
           delete_remote_files: false
+
