@@ -39,7 +39,7 @@ jobs:
         with:
           host: ${{ secrets.CPANEL_SFTP_HOST }}
           username: ${{ secrets.SFTP_USERNAME }}
-          key: ${{ secrets.CPANEL_SFTP_PRIVATE_KEY }}
+          key: ${{ secrets.SFTP_PRIVATE_KEY }}
           port: 21098
           source: "dist/public/*"
           target: "public_html/"
