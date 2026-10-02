@@ -33,13 +33,14 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Sync files to cPanel via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Sync files to cPanel via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          local-dir: ./dist/public/
-          server-dir: /public_html/
-          dangerous-clean-slate: false
+          port: 21098
+          local_path: './dist/public/*'
+          remote_path: '/public_html/'
+          sftp_only: true
+          delete_remote_files: false
