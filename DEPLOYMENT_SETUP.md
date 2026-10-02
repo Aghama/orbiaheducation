@@ -1,15 +1,16 @@
 # Orbiah Academy deployment setup
 
-The project is prepared for GitHub Actions to build the React/Vite site and deploy `dist/public` to Namecheap cPanel over SFTP.
+The project is prepared for GitHub Actions to build the React/Vite site and deploy `dist/public` to Namecheap cPanel over standard FTP.
 
 ## GitHub repository secrets
 
 Add these repository secrets before enabling the workflow:
 
-- `CPANEL_SFTP_HOST` — Namecheap SFTP hostname.
-- `CPANEL_SFTP_USERNAME` — dedicated cPanel/SFTP deployment username.
-- `CPANEL_SFTP_PRIVATE_KEY` — private key matching the authorized public key on the hosting account.
-- `CPANEL_REMOTE_PATH` — the production document root, such as `/home/CPANEL_USER/public_html/`.
+- `FTP_SERVER` — Namecheap FTP hostname, without a protocol prefix.
+- `FTP_USERNAME` — cPanel FTP username.
+- `FTP_PASSWORD` — password for that FTP account.
+
+The workflow uploads to `/public_html/`. FTP does not encrypt credentials or file contents in transit; use FTPS if the host supports it and encryption is required.
 
 The workflow runs type-checking and a production build before deployment. It deploys only `dist/public`.
 
@@ -26,4 +27,4 @@ Before launch:
 5. Confirm both arrive at `info@orbiaheducation.com` and that replying goes to the visitor.
 6. If `mail()` is restricted or delivery is unreliable, switch the endpoint to authenticated SMTP with PHPMailer using the domain mailbox credentials stored only on the server.
 
-Do not commit mailbox passwords, SSH private keys, or cPanel credentials.
+Do not commit mailbox passwords or cPanel credentials.
