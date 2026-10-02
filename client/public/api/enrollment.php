@@ -43,15 +43,18 @@ $fields = [
     'language' => 'Preferred language',
 ];
 
+$requiredFields = ['name', 'email'];
 $clean = [];
 foreach ($fields as $key => $label) {
     $value = trim((string)($data[$key] ?? ''));
-    if ($value === '') {
+
+    if ($value === '' && in_array($key, $requiredFields, true)) {
         http_response_code(422);
         echo json_encode(['ok' => false, 'error' => $label . ' is required']);
         exit;
     }
-    $clean[$key] = mb_substr($value, 0, 300);
+
+    $clean[$key] = $value === '' ? 'Not provided' : mb_substr($value, 0, 300);
 }
 
 if (!filter_var($clean['email'], FILTER_VALIDATE_EMAIL)) {
@@ -61,6 +64,12 @@ if (!filter_var($clean['email'], FILTER_VALIDATE_EMAIL)) {
 }
 
 $clean['message'] = mb_substr(trim((string)($data['message'] ?? '')), 0, 2000);
+if ($clean['message'] === '') {
+    http_response_code(422);
+    echo json_encode(['ok' => false, 'error' => 'Please enter your message']);
+    exit;
+}
+
 $clean['consent'] = !empty($data['consent']);
 if (!$clean['consent']) {
     http_response_code(422);
