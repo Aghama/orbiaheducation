@@ -1,11 +1,11 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, ChevronDown, Globe2, HeartHandshake, LoaderCircle, Menu, MessageCircle, Music2, Send, Sparkles, X } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Globe2, HeartHandshake, LoaderCircle, Menu, Music2, Send, Sparkles, X } from "lucide-react";
 import { Language, languageOptions, translate } from "../lib/i18n";
 
 const heroPhoto = "https://res.cloudinary.com/zuyjjqpl/image/upload/f_auto/q_auto/orbiah-african-hero_cd164a58.webp";
 const learningPhoto = "https://res.cloudinary.com/zuyjjqpl/image/upload/f_webp/q_auto:best/orbiah-african-family-learning_09f40212.webp";
-const whatsappUrl = "https://wa.me/966507793833?text=Hello%20Orbiah%20Education%2C%20I%27d%20like%20to%20learn%20more%20about%20Orbiah%20Academy.";
+const telegramUrl = "https://t.me/OrbiahEducation";
 const academyEmail = "admissions@orbiaheducation.com";
 const registrationFormUrl = "https://form.jotform.com/260384788218064";
 const formEndpoint = "/api/enrollment.php";
@@ -22,7 +22,7 @@ const programs = [
   { label: "Adults", age: "18+", copy: "Learn a language, develop digital skills or keep moving toward your goals.", color: "mint" },
 ];
 
-const subjects = ["English", "Arabic", "French", "Quran", "Coding", "School support"];
+const subjects = ["English", "Arabic", "French", "Korean", "Quran", "Coding", "School support"];
 
 const systemPillars = [
   { title: "Orbiah Schools", kicker: "PHYSICAL LEARNING", copy: "Structured classrooms, qualified teachers and a safe learning environment. Opening soon." },
@@ -32,10 +32,10 @@ const systemPillars = [
 
 const faqs = [
   { question: "Who is Orbiah Academy for?", answer: "Orbiah Academy supports children, teenagers and adults who want flexible, structured learning with personal encouragement. Learners can join locally or internationally." },
-  { question: "What subjects do you offer?", answer: "Our programs may include English, Arabic, French, Quran, coding and school support. We can help you find the right combination based on your learner’s goals." },
+  { question: "What subjects do you offer?", answer: "Our programs may include English, Arabic, French, Korean, Quran, coding and school support. We can help you find the right combination based on your learner’s goals." },
   { question: "Are lessons online?", answer: "Yes. Orbiah Academy is designed as an online learning and tutoring platform, making it possible to learn from wherever you are. Physical school opportunities are part of our future vision." },
-  { question: "What languages can learners use?", answer: "We offer English-medium learning options and support language development in English, Arabic and French. Tell us your preferred language in the interest form." },
-  { question: "How do I get started?", answer: "Complete the enrolment interest form or message us on WhatsApp. We’ll learn about your needs and help you choose the best next step." },
+  { question: "What languages can learners use?", answer: "We offer English-medium learning options and support language development in English, Arabic, French and Korean. Tell us your preferred language in the interest form." },
+  { question: "How do I get started?", answer: "Complete the enrolment interest form or message us on Telegram. We’ll learn about your needs and help you choose the best next step." },
 ];
 
 function SnapchatIcon({ size = 18, className = "" }: { size?: number; className?: string }) {
@@ -47,11 +47,11 @@ function SnapchatIcon({ size = 18, className = "" }: { size?: number; className?
 }
 
 function Logo() {
-  return <a className="orbiah-logo" href="#top" aria-label="Orbiah Education home"><img src="https://res.cloudinary.com/zuyjjqpl/image/upload/v1790649476/orbiaheducation.webp" alt="Orbiah Education" /></a>;
+  return <a className="orbiah-logo" href="#top" aria-label="Orbiah Education home"><img src="https://res.cloudinary.com/zuyjjqpl/image/upload/v1790948818/Orbiah_Academy_Logo_new.webp" alt="Orbiah Education" /></a>;
 }
 
-function WhatsAppButton({ className = "" }: { className?: string }) {
-  return <a className={`whatsapp-btn ${className}`} href={whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle size={18} /> WhatsApp us</a>;
+function TelegramButton({ className = "" }: { className?: string }) {
+  return <a className={`telegram-btn ${className}`} href={telegramUrl} target="_blank" rel="noreferrer"><Send size={18} /> Message us</a>;
 }
 
 function LanguageSwitcher({ language, onChange }: { language: Language; onChange: (language: Language) => void }) {
@@ -63,9 +63,9 @@ function EnrollmentForm({ language }: { language: Language }) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const t = (value: string) => translate(language, value);
-  const [form, setForm] = useState({ name: "", age: "N/A", country: "N/A", program: "General Enquiry", whatsapp: "", email: "", language: "English", message: "", consent: false, website: "" });
+  const [form, setForm] = useState({ name: "", age: "N/A", country: "N/A", program: "General Enquiry", email: "", language: "English", message: "", consent: false, website: "" });
   const update = (key: keyof typeof form) => (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => setForm((current) => ({ ...current, [key]: event.target.value }));
-  const submit = async (event: FormEvent) => { event.preventDefault(); setError(""); setSubmitting(true); try { const response = await fetch(formEndpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) }); const result = await response.json().catch(() => ({ ok: false })); if (!response.ok || !result.ok) throw new Error("submission failed"); setSent(true); } catch { setError(t("We couldn’t send your enquiry right now. Please try WhatsApp or email instead.")); } finally { setSubmitting(false); } };
+  const submit = async (event: FormEvent) => { event.preventDefault(); setError(""); setSubmitting(true); try { const response = await fetch(formEndpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) }); const result = await response.json().catch(() => ({ ok: false })); if (!response.ok || !result.ok) throw new Error("submission failed"); setSent(true); } catch { setError(t("We couldn’t send your enquiry right now. Please try Telegram or email instead.")); } finally { setSubmitting(false); } };
 
   if (sent) return <div className="form-success"><span className="success-icon"><Check size={22} /></span><h3>{t("Thank you for your interest.")}</h3><p>{t("Your enquiry has been sent to the Orbiah admissions team. We'll be in touch soon.")}</p></div>;
 
@@ -112,10 +112,10 @@ export default function Home() {
   }, [language]);
 
   return <div id="top" className="orbiah-page" dir={language === "ar" ? "rtl" : "ltr"}>
-    <header className="site-header"><div className="site-container header-inner"><Logo /><nav className={menuOpen ? "nav-open" : ""}><a href="#academy" onClick={() => setMenuOpen(false)}>{t("Academy")}</a><a href="#programs" onClick={() => setMenuOpen(false)}>{t("Programs")}</a><a href="#approach" onClick={() => setMenuOpen(false)}>{t("How it works")}</a><a href="#about" onClick={() => setMenuOpen(false)}>{t("About Orbiah")}</a><div className="mobile-nav-actions"><LanguageSwitcher language={language} onChange={setLanguage} /><a className="primary-btn" href={registrationFormUrl} target="_blank" rel="noreferrer">{t("Register Student")} <ArrowRight size={16} /></a><WhatsAppButton /></div></nav><div className="header-actions"><LanguageSwitcher language={language} onChange={setLanguage} /><WhatsAppButton /><a className="primary-btn header-cta" href={registrationFormUrl} target="_blank" rel="noreferrer">{t("Register Student")} <ArrowRight size={16} /></a></div><button className="menu-toggle" onClick={() => setMenuOpen((open) => !open)} aria-label="Toggle navigation">{menuOpen ? <X size={23} /> : <Menu size={23} />}</button></div></header>
+    <header className="site-header"><div className="site-container header-inner"><Logo /><nav className={menuOpen ? "nav-open" : ""}><a href="#academy" onClick={() => setMenuOpen(false)}>{t("Academy")}</a><a href="#programs" onClick={() => setMenuOpen(false)}>{t("Programs")}</a><a href="#approach" onClick={() => setMenuOpen(false)}>{t("How it works")}</a><a href="#about" onClick={() => setMenuOpen(false)}>{t("About Orbiah")}</a><div className="mobile-nav-actions"><LanguageSwitcher language={language} onChange={setLanguage} /><a className="primary-btn" href={registrationFormUrl} target="_blank" rel="noreferrer">{t("Register Student")} <ArrowRight size={16} /></a><TelegramButton /></div></nav><div className="header-actions"><LanguageSwitcher language={language} onChange={setLanguage} /><TelegramButton /><a className="primary-btn header-cta" href={registrationFormUrl} target="_blank" rel="noreferrer">{t("Register Student")} <ArrowRight size={16} /></a></div><button className="menu-toggle" onClick={() => setMenuOpen((open) => !open)} aria-label="Toggle navigation">{menuOpen ? <X size={23} /> : <Menu size={23} />}</button></div></header>
 
     <main>
-      <section className="orbiah-hero"><div className="hero-wash wash-left" /><div className="hero-wash wash-right" /><div className="site-container hero-layout"><motion.div className="hero-text" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .55, ease: "easeOut" }}><span className="eyebrow"><Sparkles size={13} /> {t("LEARNING FOR WHEREVER LIFE TAKES YOU")}</span><h1>{t("Empowering minds.")}<br /><em>{t("Shaping futures.")}</em></h1><p className="hero-intro">{t("Flexible, supportive learning for children, young people and adults — wherever you are in the world.")}</p><div className="hero-actions"><a className="primary-btn large-btn" href={registrationFormUrl} target="_blank" rel="noreferrer">{t("Register Student")} <ArrowRight size={18} /></a><WhatsAppButton className="hero-whatsapp" /></div><div className="hero-trust"><span className="trust-dots"><i /><i /><i /></span><span>{t("Online learning with a")}<br />{t("human touch.")}</span></div></motion.div><motion.div className="hero-visual" initial={{ opacity: 0, scale: .97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .65, delay: .12, ease: "easeOut" }}><div className="image-frame"><img src={heroPhoto} alt="African child learning at home with a tablet" /><div className="image-label"><span className="label-dot" /> {t("Welcome to Orbiah Academy")}</div></div><div className="floating-note note-one"><Globe2 size={17} /><span>{t("Learn from")}<br /><strong>{t("anywhere")}</strong></span></div><div className="floating-note note-two"><HeartHandshake size={17} /><span>{t("Personal")}<br /><strong>{t("support")}</strong></span></div><div className="hero-doodle">✦</div></motion.div></div><a className="down-cue" href="#academy">{t("Discover Orbiah")} <ChevronDown size={15} /></a></section>
+      <section className="orbiah-hero"><div className="hero-wash wash-left" /><div className="hero-wash wash-right" /><div className="site-container hero-layout"><motion.div className="hero-text" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .55, ease: "easeOut" }}><span className="eyebrow"><Sparkles size={13} /> {t("LEARNING FOR WHEREVER LIFE TAKES YOU")}</span><h1>{t("Empowering minds.")}<br /><em>{t("Shaping futures.")}</em></h1><p className="hero-intro">{t("Flexible, supportive learning for children, young people and adults — wherever you are in the world.")}</p><div className="hero-actions"><a className="primary-btn large-btn" href={registrationFormUrl} target="_blank" rel="noreferrer">{t("Register Student")} <ArrowRight size={18} /></a><TelegramButton className="hero-telegram" /></div><div className="hero-trust"><span className="trust-dots"><i /><i /><i /></span><span>{t("Online learning with a")}<br />{t("human touch.")}</span></div></motion.div><motion.div className="hero-visual" initial={{ opacity: 0, scale: .97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .65, delay: .12, ease: "easeOut" }}><div className="image-frame"><img src={heroPhoto} alt="African child learning at home with a tablet" /><div className="image-label"><span className="label-dot" /> {t("Welcome to Orbiah Academy")}</div></div><div className="floating-note note-one"><Globe2 size={17} /><span>{t("Learn from")}<br /><strong>{t("anywhere")}</strong></span></div><div className="floating-note note-two"><HeartHandshake size={17} /><span>{t("Personal")}<br /><strong>{t("support")}</strong></span></div><div className="hero-doodle">✦</div></motion.div></div><a className="down-cue" href="#academy">{t("Discover Orbiah")} <ChevronDown size={15} /></a></section>
 
       <motion.section className="academy-intro" id="academy" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .16 }} transition={{ duration: .55, ease: "easeOut" }}><div className="site-container academy-grid"><div><span className="eyebrow green">{t("THE ORBIAH ACADEMY")}</span><h2>{t("Quality learning,")}<br /><em>{t("made accessible.")}</em></h2></div><div className="academy-copy"><p>{t("Orbiah Education is a global education company delivering high-quality learning through physical schools, digital platforms and community outreach programs.")}</p><p>{t("Orbiah Academy is our online learning system: learn from anywhere through live and recorded lessons, flexible digital learning and structured courses.")}</p><div className="academy-signals"><span>{t("International curriculum")}</span><span>{t("Multilingual learning")}</span><span>{t("Accessible education for all")}</span></div><button className="text-btn" onClick={() => setShowForm(true)}>{t("Start your journey with Orbiah")} <ArrowRight size={17} /></button></div></div></motion.section>
 
@@ -131,7 +131,7 @@ export default function Home() {
 
       <motion.section className="faq-section" id="faq" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .12 }} transition={{ duration: .55, ease: "easeOut" }}><div className="site-container faq-layout"><div className="faq-intro"><span className="eyebrow green">{t("COMMON QUESTIONS")}</span><h2>{t("Good to")}<br /><em>{t("know.")}</em></h2><p>Everything you need to know before taking the first step. Still have a question?</p><button className="text-btn" onClick={() => setShowForm(true)}>{t("Ask us directly")} <ArrowRight size={17} /></button></div><div className="faq-list">{faqs.map((faq, index) => <div className={`faq-item ${openFaq === index ? "is-open" : ""}`} key={faq.question}><button className="faq-question" aria-expanded={openFaq === index} onClick={() => setOpenFaq(openFaq === index ? null : index)}><span>{t(faq.question)}</span><span className="faq-icon"><ChevronDown size={17} /></span></button><div className="faq-answer" aria-hidden={openFaq !== index}><p>{faq.answer}</p></div></div>)}</div></div></motion.section>
 
-      <motion.section className="enroll-section" id="enroll" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .12 }} transition={{ duration: .55, ease: "easeOut" }}><div className="site-container enroll-layout"><div className="enroll-pitch"><span className="eyebrow">{t("START A CONVERSATION")}</span><h2>{t("Let’s find the")}<br /><em>{t("right next step.")}</em></h2><p>Tell us about your learner and what you’re looking for. We’ll help you find the best way to begin.</p><div className="enroll-contact"><span>{t("Prefer to message?")}</span><WhatsAppButton /></div><a className="email-link" href={`mailto:${academyEmail}`}>{academyEmail}</a></div><div className="form-card"><div className="form-heading"><span>01</span><div><h3>{t("General Enquiry")}</h3><p>{t("Share a few details and we’ll be in touch.")}</p></div></div><EnrollmentForm language={language} /></div></div></motion.section>
+      <motion.section className="enroll-section" id="enroll" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .12 }} transition={{ duration: .55, ease: "easeOut" }}><div className="site-container enroll-layout"><div className="enroll-pitch"><span className="eyebrow">{t("START A CONVERSATION")}</span><h2>{t("Let’s find the")}<br /><em>{t("right next step.")}</em></h2><p>Tell us about your learner and what you’re looking for. We’ll help you find the best way to begin.</p><div className="enroll-contact"><span>{t("Prefer to message?")}</span><TelegramButton /></div><a className="email-link" href={`mailto:${academyEmail}`}>{academyEmail}</a></div><div className="form-card"><div className="form-heading"><span>01</span><div><h3>{t("General Enquiry")}</h3><p>{t("Share a few details and we’ll be in touch.")}</p></div></div><EnrollmentForm language={language} /></div></div></motion.section>
     </main>
 
     <footer className="site-footer">
