@@ -33,6 +33,26 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+
+      - name: Validate deployment settings
+        shell: bash
+        env:
+          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          SFTP_SERVER: ${{ secrets.SFTP_SERVER }}
+          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          test -n "$SFTP_USERNAME" || { echo "SFTP_USERNAME is empty"; exit 1; }
+          test -n "$SFTP_SERVER" || { echo "SFTP_SERVER is empty"; exit 1; }
+
+          if [ -z "$SFTP_PASSWORD" ] && [ -z "$SSH_PRIVATE_KEY" ]; then
+          echo "Neither SFTP_PASSWORD nor SSH_PRIVATE_KEY is set"
+          exit 1
+          fi
+
+           echo "Username and server are configured"
+
       
       - name: Deploy dist/public to Namecheap cPanel over SFTP
         uses: wlixcc/SFTP-Deploy-Action@v1.2.6
