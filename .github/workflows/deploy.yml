@@ -34,16 +34,14 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Deploy to cPanel
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
+      - name: Deploy to cPanel via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.CPANEL_SFTP_HOST }}
           username: ${{ secrets.SFTP_USERNAME }}
-          ssh_private_key: ${{ secrets.SFTP_PASSWORD }}
-          port: 21098
-          local_path: ./dist/public/*
-          remote_path: public_html/
-          sftp_only: true
-          delete_remote_files: true
+          password: ${{ secrets.SFTP_PASSWORD }}
+          server-dir: public_html/
+          local-dir: ./dist/public/
+          dangerous-clean-slate: true
 
       
