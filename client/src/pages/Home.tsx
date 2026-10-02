@@ -1,20 +1,19 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, ChevronDown, Facebook, Globe2, HeartHandshake, Instagram, LoaderCircle, Menu, MessageCircle, Sparkles, X } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Globe2, HeartHandshake, LoaderCircle, Menu, MessageCircle, Music2, Send, Sparkles, X } from "lucide-react";
 import { Language, languageOptions, translate } from "../lib/i18n";
 
 const heroPhoto = "https://res.cloudinary.com/zuyjjqpl/image/upload/f_auto/q_auto/orbiah-african-hero_cd164a58.webp";
 const learningPhoto = "https://res.cloudinary.com/zuyjjqpl/image/upload/f_webp/q_auto:best/orbiah-african-family-learning_09f40212.webp";
 const whatsappUrl = "https://wa.me/966507793833?text=Hello%20Orbiah%20Education%2C%20I%27d%20like%20to%20learn%20more%20about%20Orbiah%20Academy.";
 const academyEmail = "admissions@orbiaheducation.com";
-const registrationFormUrl = "https://form.jotform.com/260384058920054";
+const registrationFormUrl = "https://form.jotform.com/260384788218064";
 const formEndpoint = "/api/enrollment.php";
 
-// Social media placeholders - update URLs when client provides official handles
-const socialLinks = {
-  instagram: "https://instagram.com",
-  facebook: "https://facebook.com",
-  snapchat: "https://snapchat.com",
+const socialLinks: { tiktok: string; telegram: string; snapchat?: string } = {
+  tiktok: "https://www.tiktok.com/@orbiaheducation",
+  telegram: "https://t.me/OrbiahEducation",
+  // snapchat: "https://example.com",
 };
 
 const programs = [
@@ -116,7 +115,7 @@ export default function Home() {
     <header className="site-header"><div className="site-container header-inner"><Logo /><nav className={menuOpen ? "nav-open" : ""}><a href="#academy" onClick={() => setMenuOpen(false)}>{t("Academy")}</a><a href="#programs" onClick={() => setMenuOpen(false)}>{t("Programs")}</a><a href="#approach" onClick={() => setMenuOpen(false)}>{t("How it works")}</a><a href="#about" onClick={() => setMenuOpen(false)}>{t("About Orbiah")}</a><div className="mobile-nav-actions"><LanguageSwitcher language={language} onChange={setLanguage} /><a className="primary-btn" href={registrationFormUrl} target="_blank" rel="noreferrer">{t("Register Student")} <ArrowRight size={16} /></a><WhatsAppButton /></div></nav><div className="header-actions"><LanguageSwitcher language={language} onChange={setLanguage} /><WhatsAppButton /><a className="primary-btn header-cta" href={registrationFormUrl} target="_blank" rel="noreferrer">{t("Register Student")} <ArrowRight size={16} /></a></div><button className="menu-toggle" onClick={() => setMenuOpen((open) => !open)} aria-label="Toggle navigation">{menuOpen ? <X size={23} /> : <Menu size={23} />}</button></div></header>
 
     <main>
-      <section className="orbiah-hero"><div className="hero-wash wash-left" /><div className="hero-wash wash-right" /><div className="site-container hero-layout"><motion.div className="hero-text" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .55, ease: "easeOut" }}><span className="eyebrow"><Sparkles size={13} /> {t("LEARNING FOR WHEREVER LIFE TAKES YOU")}</span><h1>{t("Empowering minds.")}<br /><em>{t("Shaping futures.")}</em></h1><p className="hero-intro">{t("Flexible, supportive learning for children, young people and adults — wherever you are in the world.")}</p><div className="hero-actions"><a className="primary-btn large-btn" href={registrationFormUrl} target="_blank" rel="noreferrer">{t("Register Student")} <ArrowRight size={18} /></a><button className="secondary-btn large-btn" onClick={() => setShowForm(true)}>{t("General Enquiry")}</button><WhatsAppButton className="hero-whatsapp" /></div><div className="hero-trust"><span className="trust-dots"><i /><i /><i /></span><span>{t("Online learning with a")}<br />{t("human touch.")}</span></div></motion.div><motion.div className="hero-visual" initial={{ opacity: 0, scale: .97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .65, delay: .12, ease: "easeOut" }}><div className="image-frame"><img src={heroPhoto} alt="African child learning at home with a tablet" /><div className="image-label"><span className="label-dot" /> {t("Welcome to Orbiah Academy")}</div></div><div className="floating-note note-one"><Globe2 size={17} /><span>{t("Learn from")}<br /><strong>{t("anywhere")}</strong></span></div><div className="floating-note note-two"><HeartHandshake size={17} /><span>{t("Personal")}<br /><strong>{t("support")}</strong></span></div><div className="hero-doodle">✦</div></motion.div></div><a className="down-cue" href="#academy">{t("Discover Orbiah")} <ChevronDown size={15} /></a></section>
+      <section className="orbiah-hero"><div className="hero-wash wash-left" /><div className="hero-wash wash-right" /><div className="site-container hero-layout"><motion.div className="hero-text" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .55, ease: "easeOut" }}><span className="eyebrow"><Sparkles size={13} /> {t("LEARNING FOR WHEREVER LIFE TAKES YOU")}</span><h1>{t("Empowering minds.")}<br /><em>{t("Shaping futures.")}</em></h1><p className="hero-intro">{t("Flexible, supportive learning for children, young people and adults — wherever you are in the world.")}</p><div className="hero-actions"><a className="primary-btn large-btn" href={registrationFormUrl} target="_blank" rel="noreferrer">{t("Register Student")} <ArrowRight size={18} /></a><WhatsAppButton className="hero-whatsapp" /></div><div className="hero-trust"><span className="trust-dots"><i /><i /><i /></span><span>{t("Online learning with a")}<br />{t("human touch.")}</span></div></motion.div><motion.div className="hero-visual" initial={{ opacity: 0, scale: .97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: .65, delay: .12, ease: "easeOut" }}><div className="image-frame"><img src={heroPhoto} alt="African child learning at home with a tablet" /><div className="image-label"><span className="label-dot" /> {t("Welcome to Orbiah Academy")}</div></div><div className="floating-note note-one"><Globe2 size={17} /><span>{t("Learn from")}<br /><strong>{t("anywhere")}</strong></span></div><div className="floating-note note-two"><HeartHandshake size={17} /><span>{t("Personal")}<br /><strong>{t("support")}</strong></span></div><div className="hero-doodle">✦</div></motion.div></div><a className="down-cue" href="#academy">{t("Discover Orbiah")} <ChevronDown size={15} /></a></section>
 
       <motion.section className="academy-intro" id="academy" initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .16 }} transition={{ duration: .55, ease: "easeOut" }}><div className="site-container academy-grid"><div><span className="eyebrow green">{t("THE ORBIAH ACADEMY")}</span><h2>{t("Quality learning,")}<br /><em>{t("made accessible.")}</em></h2></div><div className="academy-copy"><p>{t("Orbiah Education is a global education company delivering high-quality learning through physical schools, digital platforms and community outreach programs.")}</p><p>{t("Orbiah Academy is our online learning system: learn from anywhere through live and recorded lessons, flexible digital learning and structured courses.")}</p><div className="academy-signals"><span>{t("International curriculum")}</span><span>{t("Multilingual learning")}</span><span>{t("Accessible education for all")}</span></div><button className="text-btn" onClick={() => setShowForm(true)}>{t("Start your journey with Orbiah")} <ArrowRight size={17} /></button></div></div></motion.section>
 
@@ -140,10 +139,11 @@ export default function Home() {
         <div className="footer-col-brand">
           <Logo />
           <div className="social-links footer-social" aria-label="Social media links">
-            {/* Social media placeholders - replace href when handles are ready */}
-            <a href={socialLinks.instagram} target="_blank" rel="noreferrer" title="Instagram" aria-label="Instagram"><Instagram size={17} /></a>
-            <a href={socialLinks.facebook} target="_blank" rel="noreferrer" title="Facebook" aria-label="Facebook"><Facebook size={17} /></a>
-            <a href={socialLinks.snapchat} target="_blank" rel="noreferrer" title="Snapchat" aria-label="Snapchat"><SnapchatIcon size={17} /></a>
+            <a href={socialLinks.tiktok} target="_blank" rel="noreferrer" title="TikTok" aria-label="TikTok"><Music2 size={17} /></a>
+            <a href={socialLinks.telegram} target="_blank" rel="noreferrer" title="Telegram" aria-label="Telegram"><Send size={17} /></a>
+            {socialLinks.snapchat && (
+              <a href={socialLinks.snapchat} target="_blank" rel="noreferrer" title="Snapchat" aria-label="Snapchat"><SnapchatIcon size={17} /></a>
+            )}
           </div>
         </div>
         <div className="footer-tagline">Making learning more accessible,<br />flexible and meaningful.</div>
