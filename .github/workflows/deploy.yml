@@ -40,7 +40,6 @@ jobs:
         env:
           SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
           SFTP_SERVER: ${{ secrets.SFTP_HOST }}
-          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
           SSH_PRIVATE_KEY: ${{ secrets.SFTP_PRIVATE_KEY }}
         run: |
           test -n "$SFTP_USERNAME" || { echo "SFTP_USERNAME is empty"; exit 1; }
