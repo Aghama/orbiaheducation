@@ -42,11 +42,22 @@ jobs:
           SFTP_SERVER: ${{ secrets.CPANEL_SFTP_HOST }}
           SSH_PRIVATE_KEY: ${{ secrets.SFTP_PRIVATE_KEY }}
         run: |
-          test -n "$SFTP_USERNAME" || { echo "SFTP_USERNAME is empty"; exit 1; }
-          test -n "$SFTP_SERVER" || { echo "CPANEL_SFTP_SERVER is empty"; exit 1; }
-          test -n "$SSH_PRIVATE_KEY" || {echo "SFTP_PRIVATE_KEY is empty"; exit 1; }
-      
-          echo "Username, server, and private key are configured"
+          if [ -z "$SFTP_USERNAME" ]; then
+             echo "SFTP_USERNAME is empty"
+             exit 1
+          fi
+
+          if [ -z "$SFTP_SERVER" ]; then
+             echo "CPANEL_SFTP_HOST is empty"
+             exit 1
+          fi
+
+          if [ -z "$SSH_PRIVATE_KEY" ]; then
+            echo "SFTP_PRIVATE_KEY is empty"
+            exit 1
+          fi
+       echo "Username, server, and private key are configured"
+
 
       
       - name: Deploy to cPanel
