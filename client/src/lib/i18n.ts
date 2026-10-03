@@ -2,7 +2,6 @@ export type Language = "en" | "ar" | "fr";
 
 export const languageOptions: { code: Language; label: string; native: string }[] = [
   { code: "en", label: "English", native: "EN" },
-  { code: "ar", label: "العربية", native: "AR" },
 ];
 
 const arabic: Record<string, string> = {

@@ -51,7 +51,7 @@ button, input, textarea, select { font: inherit; } button { border: 0; cursor: p
 .system-card button:hover svg { transform: translateX(4px); }
 .system-status { color: rgba(18,54,60,.65); font-size: 12px; letter-spacing: .04em; }
 .academy-signals { display: flex; flex-wrap: wrap; gap: 8px; margin: 3px 0 25px; }
-.academy-signals span { padding: 7px 9px; border-radius: 999px; background: #e5eee5; color: var(--deep); font-size: 10px; font-weight: 700; }
+.academy-signals span { padding: 7px 9px; border-radius: 999px; background: #e5eee5; color: var(--deep); font-size: 11px; font-weight: 700; }
 .vision-quote { margin-top: 22px; color: var(--deep); font-family: "Fraunces", serif; font-size: 25px; line-height: 1.05; }
 @media (max-width: 1050px) { .system-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 900px) { .system-section { padding: 86px 0 92px; }.system-grid { margin-top: 35px; gap: 18px; } }
@@ -72,7 +72,7 @@ button, input, textarea, select { font: inherit; } button { border: 0; cursor: p
 .full-reg-banner a { font-weight: 700; color: var(--green); display: inline-flex; align-items: center; gap: 5px; text-decoration: underline; text-underline-offset: 3px; }
 .dev-credit { color: rgba(255,255,255,.28); font-size: 10px; }.dev-credit a { color: rgba(255,255,255,.45); text-decoration: underline; text-underline-offset: 3px; }.dev-credit a:hover { color: var(--sun); }
 .eyebrow { font-size: 16px; }
-.hero-text h1 { font-size: clamp(68px, 7.4vw, 104px); }
+.hero-text h1 { font-size: clamp(72px, 7.8vw, 110px); }
 .academy-intro h2, .programs-section h2, .subjects-section h2, .approach-section h2, .schools-section h2, .system-section h2, .faq-intro h2 { font-size: clamp(58px, 6vw, 88px); }
 .program-card h3 { font-size: 46px; }
 .system-card h3 { font-size: 38px; }
@@ -85,11 +85,54 @@ button, input, textarea, select { font: inherit; } button { border: 0; cursor: p
 }
 .system-status { padding-top: 16px; }
 @media (max-width: 520px) {
-  .hero-text h1 { font-size: 55px; }
+  .hero-text h1 { font-size: 58px; }
   .academy-intro h2, .programs-section h2, .subjects-section h2, .approach-section h2, .schools-section h2, .system-section h2, .faq-intro h2 { font-size: 54px; }
   .program-card h3 { font-size: 44px; }
   .system-card h3 { font-size: 32px; }
   .faq-question { font-size: 21px; }
   .enroll-pitch h2 { font-size: 57px; }
   .form-heading h3 { font-size: 30px; }
+}
+
+.down-cue { font-size: 14px; }
+
+.hero-intro,
+.academy-copy p,
+.section-top > p,
+.program-card p,
+.system-card p,
+.subject-copy > p,
+.schools-layout p,
+.faq-intro p,
+.faq-answer p,
+.steps small,
+.enroll-pitch > p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+.schools-layout p.small-copy { font-size: 16px !important; }
+.schools-layout > div:first-child .coming-soon { margin-top: 24px; }
+
+.feedback-section { padding: 100px 0; background: var(--mint); }
+.feedback-heading { margin-bottom: 38px; }
+.feedback-section h2 { color: var(--deep); font-size: clamp(54px, 5.6vw, 78px); }
+.feedback-section h2 em { color: var(--sun); }
+.subjects-section h2 em { color: var(--sun); }
+.feedback-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.feedback-card { min-height: 230px; padding: 26px; border: 1px solid rgba(18,54,60,.12); border-radius: 8px; background: var(--paper); display: flex; flex-direction: column; align-items: flex-start; }
+.feedback-sample { color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .12em; }
+.feedback-card blockquote { margin: 24px 0 auto; color: var(--deep); font-family: "Fraunces", serif; font-size: 24px; line-height: 1.25; }
+.feedback-card p { margin: 22px 0 0; color: var(--muted); font-size: 13px; font-weight: 700; }
+.feedback-invite { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 28px; }
+.feedback-invite p { max-width: 560px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.feedback-invite .text-btn { flex: 0 0 auto; margin-top: 0; }
+@media (max-width: 900px) {
+  .feedback-grid { grid-template-columns: 1fr; }
+  .feedback-invite { align-items: flex-start; flex-direction: column; gap: 8px; }
+}
+@media (max-width: 520px) {
+  .feedback-section { padding: 78px 0; }
+  .feedback-section h2 { font-size: 48px; }
+  .feedback-card { min-height: 210px; padding: 22px; }
+  .feedback-card blockquote { font-size: 22px; }
 }
