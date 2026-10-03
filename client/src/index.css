@@ -123,12 +123,7 @@ button, input, textarea, select { font: inherit; } button { border: 0; cursor: p
 .feedback-sample { color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .12em; }
 .feedback-card blockquote { margin: 24px 0 auto; color: var(--deep); font-family: "Fraunces", serif; font-size: 24px; line-height: 1.25; }
 .feedback-card blockquote::before { content: "“"; display: block; margin-bottom: 10px; color: var(--sun); font-family: "Fraunces", serif; font-size: 44px; line-height: .75; }
-.feedback-more { display: inline; }
-.feedback-more summary { display: inline; color: var(--green); cursor: pointer; font: 700 13px "DM Sans", sans-serif; text-decoration: underline; text-underline-offset: 3px; }
-.feedback-more summary::-webkit-details-marker { display: none; }
-.feedback-more .read-less-label { display: none; }
-.feedback-more[open] .read-more-label { display: none; }
-.feedback-more[open] .read-less-label { display: inline; }
+.feedback-toggle { display: inline; padding: 0; border: 0; background: none; color: var(--green); cursor: pointer; font: 700 13px "DM Sans", sans-serif; text-decoration: underline; text-underline-offset: 3px; }
 .feedback-card p { margin: 22px 0 0; color: var(--muted); font-size: 13px; font-weight: 700; }
 .feedback-invite { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 28px; }
 .feedback-invite p { max-width: 560px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }

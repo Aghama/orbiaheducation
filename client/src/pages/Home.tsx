@@ -44,11 +44,14 @@ const testimonials = [
 ];
 
 function FeedbackQuote({ quote }: { quote: string }) {
+  const [expanded, setExpanded] = useState(false);
   const words = quote.trim().split(/\s+/);
   const preview = words.slice(0, 50).join(" ");
   const remaining = words.slice(50).join(" ");
 
-  return <blockquote>{preview}{remaining && <> <details className="feedback-more"><summary><span className="read-more-label">Read more</span><span className="read-less-label">Read less</span></summary> {remaining}</details></>}</blockquote>;
+  if (!remaining) return <blockquote>{quote}</blockquote>;
+
+  return <blockquote>{expanded ? quote : preview} <button type="button" className="feedback-toggle" onClick={() => setExpanded((current) => !current)}>{expanded ? "Read less" : "Read more"}</button></blockquote>;
 }
 
 function SnapchatIcon({ size = 18, className = "" }: { size?: number; className?: string }) {
