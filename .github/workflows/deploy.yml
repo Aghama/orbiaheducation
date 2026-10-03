@@ -34,7 +34,7 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Deploy to cPanel via SFTP
+      - name: Deploy to cPanel via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.CPANEL_SFTP_HOST }}
